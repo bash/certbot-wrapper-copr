@@ -38,6 +38,7 @@ install -pm644 systemd-units/renew-certificates.timer %{buildroot}%{_unitdir}
 %check
 cargo test
 
+
 %post
 %systemd_post renew-certificates.service
 %systemd_post renew-certificates.timer

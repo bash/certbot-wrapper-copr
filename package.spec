@@ -10,6 +10,8 @@ ExclusiveArch: x86_64 i686 armv7hl
 ExclusiveArch: x86_64 aarch64
 %endif
 BuildRequires: cargo
+%{?systemd_requires}
+BuildRequires: systemd
 Source0: https://github.com/bash/certbot-wrapper/archive/%{version}/certbot-wrapper-%{version}.tar.gz
 
 
@@ -35,6 +37,20 @@ install -pm644 systemd-units/renew-certificates.timer %{buildroot}%{_unitdir}
 
 %check
 cargo test
+
+%post
+%systemd_post renew-certificates.service
+%systemd_post renew-certificates.timer
+
+
+%preun
+%systemd_preun renew-certificates.service
+%systemd_preun renew-certificates.timer
+
+
+%postun
+%systemd_postun_with_restart renew-certificates.service
+%systemd_postun_with_restart renew-certificates.timer
 
 
 %files

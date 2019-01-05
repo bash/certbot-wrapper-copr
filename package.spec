@@ -1,3 +1,5 @@
+%define debug_package %{nil}
+
 Name: certbot-wrapper
 Version: 0.1.0
 Release: 1%{?dist}
